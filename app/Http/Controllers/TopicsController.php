@@ -16,6 +16,7 @@ class TopicsController extends Controller
 
 	public function index()
 	{
+		//使用预加载user和category方法的方式，解决N+1的问题
 		$topics = Topic::with('user','category')->paginate(30);
 		return view('topics.index', compact('topics'));
 	}
