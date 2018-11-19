@@ -47,4 +47,16 @@ class Topic extends Model
     	//按照创建时间排序
     	return $query->orderBy('created_at','desc');
     }
+
+    /**
+     * 生成模型 URL
+     * @author CMJ
+     * @Date   2018-11-20
+     * @param  array      $params   参数 $params 允许附加 URL 参数的设定
+     * @return [type]               [description]
+     */
+    public function link($params = [])
+    {
+        return route('topics.show', array_merge([$this->id, $this->slug], $params));
+    }
 }
