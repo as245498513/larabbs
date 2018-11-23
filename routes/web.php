@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/','PagesController@root')->name('root');
+Route::get('/', 'TopicsController@index')->name('root');
 
 //Auth::routes(); //通过php atsian make:auth生成
 //为了更直观,用下面9行代替了Auth::routes();
