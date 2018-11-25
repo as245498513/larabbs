@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
 use Auth;
-class User extends Authenticatable
+use Spatie\Permission\Traits\HasRoles;
+
+
+class User extends Authenticatable implements JWTSubject
 {
 
     use Traits\ActiveUserHelper;
@@ -63,6 +66,17 @@ class User extends Authenticatable
         $this->notification_count = 0;
         $this->save();
         $this->unreadNotifications->markAsRead();
+    }
+
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 
 
