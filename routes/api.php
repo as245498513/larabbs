@@ -46,9 +46,17 @@ $api->version('v1',[
 		$api->delete('authorizations/current', 'AuthorizationsController@destroy')
 		    ->name('api.authorizations.destroy');
 
-	    //游客可以访问的接口
+	    //分类列表(游客)
     	$api->get('categories', 'CategoriesController@index')
     	    ->name('api.categories.index');
+
+    	//话题列表接口(游客)
+		$api->get('topics', 'TopicsController@index')
+		    ->name('api.topics.index');
+
+    	//查看某个用户发布的话题接口(游客)
+		$api->get('users/{user}/topics', 'TopicsController@userIndex')
+		    ->name('api.users.topics.index');
 
         // 需要 token 验证的接口
         $api->group(['middleware' => 'api.auth'], function($api) {
@@ -72,7 +80,7 @@ $api->version('v1',[
 			//修改话题
 			$api->patch('topics/{topic}', 'TopicsController@update')
 			    ->name('api.topics.update');
-			    
+
 			//删除话题
 			$api->delete('topics/{topic}', 'TopicsController@destroy')
 			    ->name('api.topics.destroy');
